@@ -32,4 +32,29 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
         })
 
     }
+
+    override fun onGetByID(context: Context, id: String){
+
+        view.showLoading()
+
+        val bebidaService = RetrofitInicializer().createBebidaService()
+        val call = bebidaService.getBebidaID(id)
+
+        call.enqueue(object : Callback<Bebida> {
+            override fun onFailure(call: Call<Bebida>, t: Throwable) {
+                view.hideLoading()
+                view.showMessage("Falha na conexão. Verifique o acesso a internet")
+            }
+
+            override fun onResponse(call: Call<Bebida>, response: Response<Bebida>) {
+                view.hideLoading()
+                if(response.body() != null){
+                    view.showBebida(response.body()!!.copy())
+                }else {
+                    view.showMessage("Não foi encontrado")
+                }
+            }
+        })
+
+    }
 }
