@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ProgressBar android:id="@+id/pbLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvBebidas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:listitem="@layout/bebida_item_lista"
         />
 
 </FrameLayout>
